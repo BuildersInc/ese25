@@ -97,3 +97,31 @@ Malloc muss aber mit sowas wie kmalloc aufgerufen werden
 
 ## I2C Treiber
 https://elixir.bootlin.com/u-boot/v2024.07/source
+
+
+## Device Tree Overlay
+
+```
+/dts-v1/;
+/plugin/;
+/ {
+        fragment@0 {
+                target = <& i2c1 >;
+                __overlay__ {
+                        #address-cells = <1>;
+                        #size-cells = <0>;
+                        
+                        my_dev : my_dev@12 {
+                                compatible = "brightlight, mydev" ,
+                                status = "okay";
+                                reg = <0x12>;
+                        };
+                };
+        };
+};
+```
+
+Mehr Info: https://www.devicetree.org/
+WICHTIG:
+Die namen "compatible" MÜSSEN überall gleich sein
+
